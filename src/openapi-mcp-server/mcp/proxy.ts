@@ -41,6 +41,7 @@ export class MCPProxy {
         baseUrl,
         headers: {
           'Authorization': `Bearer ${accessToken}`,
+          'Notion-Version': '2022-06-28',
         },
       },
       openApiSpec,
