@@ -32,7 +32,7 @@ export class MCPProxy {
 
   constructor(name: string, openApiSpec: OpenAPIV3.Document, accessToken: string) {
     this.server = new Server({ name, version: '1.0.0' }, { capabilities: { tools: {} } })
-    const baseUrl = openApiSpec.servers?.[0].url
+    const baseUrl = openApiSpec?.servers?.[0]?.url
     if (!baseUrl) {
       throw new Error('No base URL found in OpenAPI spec')
     }
