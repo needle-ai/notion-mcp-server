@@ -38,7 +38,7 @@ describe('MCPProxy', () => {
       },
     }
 
-    proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+    proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
   })
 
   describe('listTools handler', () => {
@@ -65,7 +65,7 @@ describe('MCPProxy', () => {
           }
         }
       }
-      proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+      proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
       const server = (proxy as any).server
       const listToolsHandler = server.setRequestHandler.mock.calls[0].filter((x: unknown) => typeof x === 'function')[0];
       const result = await listToolsHandler()
@@ -206,7 +206,7 @@ describe('MCPProxy', () => {
         'X-Custom-Header': 'test',
       })
 
-      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
       expect(HttpClient).toHaveBeenCalledWith(
         expect.objectContaining({
           headers: {
@@ -221,7 +221,7 @@ describe('MCPProxy', () => {
     it('should return empty object when env var is not set', () => {
       delete process.env.OPENAPI_MCP_HEADERS
 
-      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
       expect(HttpClient).toHaveBeenCalledWith(
         expect.objectContaining({
           headers: {},
@@ -234,7 +234,7 @@ describe('MCPProxy', () => {
       const consoleSpy = vi.spyOn(console, 'warn')
       process.env.OPENAPI_MCP_HEADERS = 'invalid json'
 
-      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
       expect(HttpClient).toHaveBeenCalledWith(
         expect.objectContaining({
           headers: {},
@@ -248,7 +248,7 @@ describe('MCPProxy', () => {
       const consoleSpy = vi.spyOn(console, 'warn')
       process.env.OPENAPI_MCP_HEADERS = '"string"'
 
-      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec)
+      const proxy = new MCPProxy('test-proxy', mockOpenApiSpec, 'test-access-token')
       expect(HttpClient).toHaveBeenCalledWith(
         expect.objectContaining({
           headers: {},
