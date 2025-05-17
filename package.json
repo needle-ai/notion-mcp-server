@@ -10,8 +10,11 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc -build && node scripts/build-cli.js",
+    "build": "tsup src/server.ts",
     "dev": "tsx watch scripts/start-server.ts"
+  },
+  "exports": {
+    "./server": "./dist/server.cjs"
   },
   "bin": {
     "notion-mcp-server": "bin/cli.mjs"
@@ -39,6 +42,7 @@
     "@vitest/coverage-v8": "3.1.1",
     "esbuild": "^0.25.2",
     "multer": "1.4.5-lts.1",
+    "tsup": "^8.3.4",
     "openai": "^4.91.1",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
